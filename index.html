@@ -1,5 +1,4 @@
 <!DOCTYPE html>
-
 <html lang="en">
 <head>
 <meta charset="utf-8"/>
@@ -18,11 +17,9 @@
       --mint: #A9D6B7;
       --dark-overlay: #2f3f2a;
     }
-
     * {
       box-sizing: border-box;
     }
-
     body {
       margin: 0;
       padding: 0;
@@ -32,7 +29,6 @@
       overflow: hidden;
       position: relative;
     }
-
     .screen {
       display: none;
       justify-content: center;
@@ -49,7 +45,6 @@
       top: 0;
       left: 0;
     }
-
      #screen1_5 h3 {
        margin-top: 0.1rem;
        margin-bottom: 0.1rem;
@@ -80,13 +75,11 @@
       transform: translateY(0);
       z-index: 2;
     }
-
     h1, h2, h3, h4, h5, h6 {
       font-family: 'Mansalva', cursive;
       color: white;
       margin-bottom: 1rem;
     }
-
     button, .universal-button {
   background-color: var(--accent);
   color: white;
@@ -100,30 +93,25 @@
   transition: background-color 0.3s ease, transform 0.2s ease;
   margin-top: 1.5rem;
 }
-
 button:hover, .universal-button:hover,
 button:focus, .universal-button:focus {
   background-color: var(--hover-accent);
   transform: scale(1.04);
 }
-
 @media (max-width: 600px) {
   button, .universal-button {
     font-size: 1.1rem;
     padding: 1rem 2rem;
     margin-top: 1rem;
   }
-
   button:hover, .universal-button:hover,
   button:focus, .universal-button:focus {
     transform: scale(1.06);
   }
 }
-
     button:hover {
       background-color: var(--hover-accent);
     }
-
     .poem-popup {
       font-family: 'Mansalva', cursive;
       font-size: 1.4rem;
@@ -134,7 +122,6 @@ button:focus, .universal-button:focus {
       color: white;
       animation: fadeIn 1.5s ease forwards;
     }
-
     .letter {
       max-height: 80vh;
       overflow-y: auto;
@@ -147,19 +134,16 @@ button:focus, .universal-button:focus {
       font-size: 1.1rem;
       box-shadow: 0 8px 16px rgba(0,0,0,0.2);
     }
-
 .letter-body {
   text-align: justify;
   margin-left: 2rem;
   margin-right: 2rem;
   font-style: italic;
 }
-
 .letter-signature {
   text-align: right;
   font-style: italic;
-}
-    
+}   
 .envelope {
   position: relative;
   width: 160px;
@@ -168,17 +152,14 @@ button:focus, .universal-button:focus {
   perspective: 1000px;
   cursor: pointer;
   transition: transform 0.5s ease;
-
   background-color: #d9c8a8;
   overflow: hidden;
   border-radius: 6px;
-
   background-color: #d9c8a8;
   overflow: hidden;
   border-radius: 6px;
   box-shadow: 0 6px 15px rgba(0, 0, 0, 0.15);
 }
-
 .envelope .front {
   position: absolute;
   left: 0;
@@ -186,7 +167,6 @@ button:focus, .universal-button:focus {
   width: 0;
   height: 0;
 }
-
 .front.flap {
   border-left: 80px solid transparent;
   border-right: 80px solid transparent;
@@ -194,33 +174,26 @@ button:focus, .universal-button:focus {
   z-index: 2;
   transform-origin: top center;
   transition: transform 0.5s ease;
-
   box-shadow: inset 0 -2px 4px rgba(0, 0, 0, 0.1);
 }
-
 .front.pocket {
   border-left: 80px solid #d9c8a8;
   border-right: 80px solid #d9c8a8;
   border-bottom: 50px solid #d9c8a8;
   border-top: 50px solid transparent;
   z-index: 1;
-
   box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.1);
 }
-
 .envelope.open .flap {
   transform: rotateX(-120deg);
 }
-
 .envelope.closing .flap {
   transform: rotateX(0deg);
 }
-
 .envelope:hover {
   box-shadow: 0 0 12px 4px #D8B46E !important;
   transition: box-shadow 0.4s ease-in-out;
 }
-
     .envelope.open {
       transform: rotateX(180deg);
     }
@@ -240,17 +213,14 @@ button:focus, .universal-button:focus {
       border-radius: 50%;
       animation: float 8s linear infinite;
     }
-
     @keyframes float {
       0% { transform: translateY(0) translateX(0); opacity: 0.8; }
       100% { transform: translateY(-100vh) translateX(50px); opacity: 0; }
     }
-
     @keyframes fadeOut {
   from { opacity: 1; transform: translateY(0); }
   to { opacity: 0; transform: translateY(10px); }
 }
-
 @keyframes fadeIn {
       from { opacity: 0; transform: translateY(10px); }
       to { opacity: 1; transform: translateY(0); }
@@ -264,7 +234,6 @@ button:focus, .universal-button:focus {
       opacity: 1 !important;
       transform: scale(1.5);
     }
-  
 .stars {
   pointer-events: none;
   position: absolute;
@@ -274,11 +243,9 @@ button:focus, .universal-button:focus {
   overflow: hidden;
   z-index: 0;
 }
-
 .star {
   top: 50%;
   transform: translateY(0);
-
   position: absolute;
   bottom: -10px;
   width: 2px;
@@ -287,7 +254,6 @@ button:focus, .universal-button:focus {
   opacity: 0;
   animation: floatStar 8s linear infinite;
 }
-
 @keyframes twinkle {
   0%, 100% { opacity: 0.3; }
   50% { opacity: 1; }
@@ -341,18 +307,14 @@ button:focus, .universal-button:focus {
   transform: translateY(0);
   z-index: 2;
 }
-
 .envelope:hover {
   box-shadow: 0 0 12px 4px var(--accent);
   transition: box-shadow 0.4s ease-in-out;
 }
-
-
 .balloon {
   top: 50%;
   pointer-events: none;
   transform: translateY(0);
-
   position: absolute;
   bottom: -100px;
   width: 40px;
@@ -363,7 +325,6 @@ button:focus, .universal-button:focus {
   animation: floatBalloon 10s linear infinite;
   z-index: 1;
 }
-
 .balloon::after {
   content: "";
   position: absolute;
@@ -578,11 +539,9 @@ button:focus, .universal-button:focus {
 
   .envelope {
     transform: scale(0.85);
-  
   background-color: #d9c8a8;
   overflow: hidden;
   border-radius: 6px;
-
   background-color: #d9c8a8;
   overflow: hidden;
   border-radius: 6px;
@@ -1028,7 +987,7 @@ for (let i = 0; i < 10; i++) {
 
     let currentPoem = 0;
     const poems = [
-      `I saw your eyes and lost my way,\nLike stars that stole the light of day.\nThe thought of you, so wide, so true,\nOutshone the past I once clung to.`,
+  `I saw your eyes and lost my way,\nLike stars that stole the light of day.\nThe thought of you, so wide, so true,\nOutshone the past I once clung to.`,
   `I want your highs, your quiet lows,\nThe way your guarded feeling shows.\nNo need to shine or rise above—\nI’d take your fear, your fragile love.`,
   `I want your flaws, your storms, your rain,\nThe hidden aches you don’t explain.\nYour cracks, your shadows, all you do—\nI want every part of you.`,
   `You hesitate, yet still I see\nA strength that speaks so honestly.\nNot perfect, polished, or refined,\nBut soft, and real, and unconfined.`,
@@ -1169,11 +1128,9 @@ let currentAffirmationSet = 0;
 function showAffirmationSet(index) {
   const container = document.querySelector("#screen3 .affirmation-container");
   container.innerHTML = ""; 
-
   const start = index * 6;
   const end = start + 6;
   const subset = affirmations.slice(start, end);
-
   subset.forEach((text, i) => {
     const card = document.createElement("div");
     card.className = "affirmation-card";
@@ -1268,9 +1225,9 @@ today, on your birthday, I want to remind you that you matter. your existence is
 
 I wish you peace, the kind that silences the noise in your head and lets you rest without guilt. I wish you healing, the slow, quiet kind that finds you in the middle of the night when everything feels too heavy. I wish you warmth, not just from the people around you, but from within yourself. I hope you learn to be gentle with your own heart. I wish you clarity for all the things you’ve been trying to figure out, and the ones you’re too tired to name. I wish you freedom from the weight you’ve been carrying alone. I hope you find spaces where you can breathe freely and just be. I wish you genuine happiness, the one that makes you feel alive again. I wish you love that doesn't ask you to shrink, love that feels like coming home. I hope life is kind to you. I hope the world gives you the gentleness you deserve. and most of all, I wish you days where you remember that you are enough. even without doing anything, even when you’re quiet, and even when you're not okay.
 
-I want to say more, but I don’t want to overwhelm you. I just needed you to know that I’m still here, and I don’t plan on going anywhere kaya I’m staying until you don’t want me around anymore. you mean more to me than I know how to explain— you always have since that rainy day of may last year. I love you ardently, Adrian. it may seem unreal but I really do. you don’t have to say it back, you don’t have to do anything at all. I just needed you to know, especially today, that your life is worth celebrating. that your existence is a blessing, and that somewhere out here, someone who sees you and is rooting for you— always. 
+I want to say more, but I don’t want to overwhelm you. I just needed you to know that I’m still here, and I don’t plan on going anywhere kaya I’m staying until you don’t want me around anymore. you mean more to me than I know how to explain— you have always been since that rainy day of may last year. I love you ardently, Adrian. it may seem unreal but I really do— so much so that it's making me do things I never knew I could do for and because of someone. you don’t have to say it back, you don’t have to do anything at all. I just needed you to know, especially today, that your life is worth celebrating. that your existence is a blessing, and that somewhere out here, someone who sees you and is rooting for you— always. 
 
-I know you’re more than capable of handling life and everything it throws at you but just in case the weight gets a little too heavy, please know that I’m always here— whether you need someone to listen, someone to lean on, or just someone to sit quietly with you, I’m just one message away. enjoy your special day, beh. 22 is just a number anyway, and you’re still the same chinito who somehow stole my heart last year lolololol
+I know you’re more than capable of handling life and everything it throws at you but just in case the weight gets a little too heavy, please know that I’m always here— whether you need someone to listen, someone to lean on, or just someone to sit quietly with you, I’m just one message and call away. enjoy your special day, beh! 22 is just a number anyway, and you’re still the same chinito who somehow stole my heart last year lolololol
 
 happy happy birthday again, beh! thank you so much for existing and for staying in my life, even just for a while. Ingat ikaw palagi and see you around! lots of love, xo
 </div>
@@ -1420,7 +1377,6 @@ document.addEventListener("DOMContentLoaded", () => {
   const audio = document.getElementById("hbd-audio");
   const cake = screen.querySelector(".cake");
   const button = document.getElementById("wishNextButton");
-
   const candleCount = 3;
   const startX = 85;
   const spacing = 40;
