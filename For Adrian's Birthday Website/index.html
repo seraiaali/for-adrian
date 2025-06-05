@@ -1,0 +1,1638 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>For Adrian</title>
+<link href="https://fonts.googleapis.com/css2?family=Mansalva&amp;family=Quicksand&amp;display=swap" rel="stylesheet"/>
+<style>
+    :root {
+      --green: #476B42;
+      --accent: #2E8B57;   
+      --hover-accent: #256B47; 
+      --bg-light: #F2E6D8;
+      --text-dark: #3F3A36;
+      --soft-shadow: rgba(0, 0, 0, 0.08);
+      --ivory: #FFF7E6;
+      --mint: #A9D6B7;
+      --dark-overlay: #2f3f2a;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: 'Quicksand', sans-serif;
+      background-color: var(--green);
+      color: white;
+      overflow: hidden;
+      position: relative;
+    }
+
+    .screen {
+      display: none;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      flex-direction: column;
+      text-align: center;
+      padding: 2rem;
+      opacity: 0;
+      transition: opacity 1s ease, transform 0.5s ease;
+      transform: translateY(20px);
+      position: absolute;
+      width: 100%;
+      top: 0;
+      left: 0;
+    }
+
+     #screen1_5 h3 {
+       margin-top: 0.1rem;
+       margin-bottom: 0.1rem;
+    }
+     #screen2 h3 {
+       margin-bottom: 0rem;
+    }
+     #screen2_5 h3 {
+       margin-top: 0.1rem;
+       margin-bottom: 0.1rem;
+    }
+     #screen3 h3 {
+       margin-top: 0.1rem;
+       margin-bottom: 0.1rem;
+    }
+    #screen3 h2 {
+      margin-bottom: 0.5rem;
+    }
+    #screen3 .affirmation-container {
+      margin-top: 0.5rem;
+    }
+    #screen4 h2 {
+      margin-bottom: 4rem;
+    }
+    .active {
+      display: flex;
+      opacity: 1;
+      transform: translateY(0);
+      z-index: 2;
+    }
+
+    h1, h2, h3, h4, h5, h6 {
+      font-family: 'Mansalva', cursive;
+      color: white;
+      margin-bottom: 1rem;
+    }
+
+    button, .universal-button {
+  background-color: var(--accent);
+  color: white;
+  font-size: 1.25rem;
+  border: none;
+  padding: 0.8rem 2.5rem;
+  border-radius: 2rem;
+  box-shadow: 0 4px 8px var(--soft-shadow);
+  cursor: pointer;
+  font-family: 'Mansalva', cursive;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+  margin-top: 1.5rem;
+}
+
+button:hover, .universal-button:hover,
+button:focus, .universal-button:focus {
+  background-color: var(--hover-accent);
+  transform: scale(1.04);
+}
+
+@media (max-width: 600px) {
+  button, .universal-button {
+    font-size: 1.1rem;
+    padding: 1rem 2rem;
+    margin-top: 1rem;
+  }
+
+  button:hover, .universal-button:hover,
+  button:focus, .universal-button:focus {
+    transform: scale(1.06);
+  }
+}
+
+    button:hover {
+      background-color: var(--hover-accent);
+    }
+
+    .poem-popup {
+      font-family: 'Mansalva', cursive;
+      font-size: 1.4rem;
+      max-width: 600px;
+      margin: auto;
+      white-space: pre-wrap;
+      display: none;
+      color: white;
+      animation: fadeIn 1.5s ease forwards;
+    }
+
+    .letter {
+      max-height: 80vh;
+      overflow-y: auto;
+      padding: 2rem;
+      background-color: var(--dark-overlay);
+      color: white;
+      border-radius: 1rem;
+      margin: 2rem;
+      white-space: pre-wrap;
+      font-size: 1.1rem;
+      box-shadow: 0 8px 16px rgba(0,0,0,0.2);
+    }
+
+.letter-body {
+  text-align: justify;
+  margin-left: 2rem;
+  margin-right: 2rem;
+  font-style: italic;
+}
+
+.letter-signature {
+  text-align: right;
+  font-style: italic;
+}
+    
+.envelope {
+  position: relative;
+  width: 160px;
+  height: 100px;
+  margin: 2rem auto;
+  perspective: 1000px;
+  cursor: pointer;
+  transition: transform 0.5s ease;
+
+  background-color: #d9c8a8;
+  overflow: hidden;
+  border-radius: 6px;
+
+  background-color: #d9c8a8;
+  overflow: hidden;
+  border-radius: 6px;
+  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.15);
+}
+
+.envelope .front {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 0;
+  height: 0;
+}
+
+.front.flap {
+  border-left: 80px solid transparent;
+  border-right: 80px solid transparent;
+  border-top: 50px solid #e3d5b8;
+  z-index: 2;
+  transform-origin: top center;
+  transition: transform 0.5s ease;
+
+  box-shadow: inset 0 -2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.front.pocket {
+  border-left: 80px solid #d9c8a8;
+  border-right: 80px solid #d9c8a8;
+  border-bottom: 50px solid #d9c8a8;
+  border-top: 50px solid transparent;
+  z-index: 1;
+
+  box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.envelope.open .flap {
+  transform: rotateX(-120deg);
+}
+
+.envelope.closing .flap {
+  transform: rotateX(0deg);
+}
+
+.envelope:hover {
+  box-shadow: 0 0 12px 4px #D8B46E !important;
+  transition: box-shadow 0.4s ease-in-out;
+}
+
+    .envelope.open {
+      transform: rotateX(180deg);
+    }
+.envelope.closing {
+  transform: rotateX(0deg);
+}
+.envelope:hover {
+  box-shadow: 0 0 12px 4px #D8B46E !important;
+  transition: box-shadow 0.4s ease-in-out;
+}
+    .petal {
+      position: absolute;
+      width: 8px;
+      height: 8px;
+      background: var(--mint);
+      opacity: 0.6;
+      border-radius: 50%;
+      animation: float 8s linear infinite;
+    }
+
+    @keyframes float {
+      0% { transform: translateY(0) translateX(0); opacity: 0.8; }
+      100% { transform: translateY(-100vh) translateX(50px); opacity: 0; }
+    }
+
+    @keyframes fadeOut {
+  from { opacity: 1; transform: translateY(0); }
+  to { opacity: 0; transform: translateY(10px); }
+}
+
+@keyframes fadeIn {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    @media (max-width: 768px) {
+      .letter { margin: 1rem; font-size: 1rem; }
+    }
+
+    #heart.animate {
+      opacity: 1 !important;
+      transform: scale(1.5);
+    }
+  
+.stars {
+  pointer-events: none;
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background: transparent;
+  overflow: hidden;
+  z-index: 0;
+}
+
+.star {
+  top: 50%;
+  transform: translateY(0);
+
+  position: absolute;
+  bottom: -10px;
+  width: 2px;
+  height: 2px;
+  background: white;
+  opacity: 0;
+  animation: floatStar 8s linear infinite;
+}
+
+@keyframes twinkle {
+  0%, 100% { opacity: 0.3; }
+  50% { opacity: 1; }
+}
+
+@keyframes floatStar {
+  0% {
+    transform: translateY(0);
+    opacity: 0.3;
+  }
+  50% {
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(-120vh);
+    opacity: 0;
+  }
+}
+
+.love-signature {
+  position: relative;
+  cursor: pointer;
+  display: inline-block;
+  transition: transform 0.3s ease;
+}
+
+.love-signature::after {
+  content: "❤️";
+  position: absolute;
+  top: -10px;
+  right: -25px;
+  opacity: 0;
+  transform: scale(0);
+  transition: transform 0.3s ease, opacity 0.3s ease;
+}
+
+.love-signature:hover::after {
+  opacity: 1;
+  transform: scale(1.2);
+}
+
+.screen {
+  transition: opacity 1s ease, transform 0.5s ease;
+  opacity: 0;
+  transform: translateY(20px);
+}
+
+.screen.active {
+  display: flex;
+  opacity: 1 !important;
+  transform: translateY(0);
+  z-index: 2;
+}
+
+.envelope:hover {
+  box-shadow: 0 0 12px 4px var(--accent);
+  transition: box-shadow 0.4s ease-in-out;
+}
+
+
+.balloon {
+  top: 50%;
+  pointer-events: none;
+  transform: translateY(0);
+
+  position: absolute;
+  bottom: -100px;
+  width: 40px;
+  height: 60px;
+  background-color: #FFD1DC;
+  border-radius: 20px 20px 20px 20px;
+  box-shadow: inset -4px -8px rgba(0, 0, 0, 0.2);
+  animation: floatBalloon 10s linear infinite;
+  z-index: 1;
+}
+
+.balloon::after {
+  content: "";
+  position: absolute;
+  bottom: -10px;
+  left: 50%;
+  width: 2px;
+  height: 20px;
+  background: white;
+  transform: translateX(-50%);
+}
+
+@keyframes floatBalloon {
+  0% {
+    transform: translateY(0) translateX(0) rotate(0deg);
+    opacity: 1;
+  }
+  50% {
+    transform: translateY(-60vh) translateX(20px) rotate(5deg);
+    opacity: 0.9;
+  }
+  100% {
+    transform: translateY(-120vh) translateX(-20px) rotate(-5deg);
+    opacity: 0;
+  }
+}
+
+  100% {
+    transform: translateY(-120vh) rotate(10deg);
+    opacity: 0;
+  }
+}
+
+.balloon-row {
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  height: 100px;
+  pointer-events: none;
+  z-index: 3;
+}
+
+.balloon.static {
+  position: absolute;
+  bottom: 0;
+  width: 40px;
+  height: 60px;
+  border-radius: 20px 20px 20px 20px;
+  box-shadow: inset -4px -8px rgba(0, 0, 0, 0.2);
+  opacity: 1;
+}
+
+@media (max-width: 600px) {
+  .balloon-row {
+    height: 80px;
+  }
+
+  .balloon.static {
+    width: 30px;
+    height: 45px;
+    border-radius: 15px 15px 15px 15px;
+  }
+}
+
+@media (max-width: 600px) {
+  body {
+    font-size: 14px;
+    padding: 0 1rem;
+  }
+
+  h1, h2, h3 {
+    font-size: 1.5rem;
+  }
+
+  .screen {
+    padding: 1rem;
+    text-align: center;
+  }
+
+  .letter {
+    margin: 1rem;
+    font-size: 1rem;
+    padding: 1rem;
+  }
+
+  .letter-body {
+    margin-left: 0.5rem;
+    margin-right: 0.5rem;
+  }
+
+  button, .universal-button {
+  background-color: var(--accent);
+  color: white;
+  font-size: 1.25rem;
+  border: none;
+  padding: 0.8rem 2.5rem;
+  border-radius: 2rem;
+  box-shadow: 0 4px 8px var(--soft-shadow);
+  cursor: pointer;
+  font-family: 'Mansalva', cursive;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+  margin-top: 1.5rem;
+}
+
+button:hover, .universal-button:hover,
+button:focus, .universal-button:focus {
+  background-color: var(--hover-accent);
+  transform: scale(1.04);
+}
+
+@media (max-width: 600px) {
+  button, .universal-button {
+    font-size: 1.1rem;
+    padding: 1rem 2rem;
+    margin-top: 1rem;
+  }
+
+  button:hover, .universal-button:hover,
+  button:focus, .universal-button:focus {
+    transform: scale(1.06);
+  }
+}
+
+  iframe {
+    height: 200px !important;
+  }
+
+  .envelope {
+    transform: scale(0.8);
+  
+  background-color: #d9c8a8;
+  overflow: hidden;
+  border-radius: 6px;
+
+  background-color: #d9c8a8;
+  overflow: hidden;
+  border-radius: 6px;
+  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.15);
+}
+
+  .balloon.static {
+    width: 25px;
+    height: 40px;
+    border-radius: 12px 12px 12px 12px;
+  }
+}
+
+@media (max-width: 768px) {
+  body {
+    font-size: 14px;
+    padding: 0 1rem;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    font-size: 1.4rem;
+    line-height: 1.5;
+  }
+
+  .screen {
+    padding: 1rem;
+    text-align: center;
+  }
+
+  .letter {
+    font-size: 1rem;
+    padding: 1rem;
+    margin: 1rem;
+  }
+
+  .letter-body,
+  .letter-signature {
+    margin: 0.5rem;
+  }
+
+  button, .universal-button {
+  background-color: var(--accent);
+  color: white;
+  font-size: 1.25rem;
+  border: none;
+  padding: 0.8rem 2.5rem;
+  border-radius: 2rem;
+  box-shadow: 0 4px 8px var(--soft-shadow);
+  cursor: pointer;
+  font-family: 'Mansalva', cursive;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+  margin-top: 1.5rem;
+}
+
+button:hover, .universal-button:hover,
+button:focus, .universal-button:focus {
+  background-color: var(--hover-accent);
+  transform: scale(1.04);
+}
+
+@media (max-width: 600px) {
+  button, .universal-button {
+    font-size: 1.1rem;
+    padding: 1rem 2rem;
+    margin-top: 1rem;
+  }
+
+  button:hover, .universal-button:hover,
+  button:focus, .universal-button:focus {
+    transform: scale(1.06);
+  }
+}
+
+  iframe {
+    width: 100% !important;
+    height: auto !important;
+    aspect-ratio: 16 / 9;
+  }
+
+  .envelope {
+    transform: scale(0.85);
+  
+  background-color: #d9c8a8;
+  overflow: hidden;
+  border-radius: 6px;
+
+  background-color: #d9c8a8;
+  overflow: hidden;
+  border-radius: 6px;
+  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.15);
+}
+
+  .balloon.static {
+    width: 25px;
+    height: 40px;
+    border-radius: 12px;
+  }
+}
+.affirmation-container {OLD
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 1.5rem;
+  max-width: 800px;
+  margin: 2rem auto;
+}
+
+.affirmation-card {OLD
+  background: var(--dark-overlay);
+  color: white;
+  padding: 1.5rem;
+  border-radius: 1rem;
+  text-align: center;
+  font-size: 1rem;
+  font-style: italic;
+  opacity: 0;
+  transform: translateY(20px);
+  animation: fadeCard 0.6s ease forwards;
+  animation-delay: var(--delay);
+  box-shadow: 0 0 8px rgba(255, 255, 255, 0.15);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  position: relative;
+  z-index: 1;
+}
+
+.affirmation-card:hover {
+  transform: translateY(-6px) scale(1.02);
+  box-shadow: 0 0 18px 6px rgba(255, 255, 255, 0.25);
+}
+
+@keyframes fadeCard {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes floatRandom {
+  0% { transform: translate(0, 0) rotate(0deg); }
+  50% { transform: translate(3px, -6px) rotate(1deg); }
+  100% { transform: translate(-3px, 6px) rotate(-1deg); }
+}
+
+.affirmation-card {OLD
+  animation: floatCard 6s ease-in-out infinite, fadeCard 0.6s ease forwards;
+}
+
+@keyframes floatCard {OLD
+  0%   { transform: translateY(0px); }
+  50%  { transform: translateY(-5px); }
+  100% { transform: translateY(0px); }
+}
+
+.affirmation-container {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.5rem;
+  max-width: 800px;
+  margin: 2rem auto;
+  justify-items: center;
+}
+
+.affirmation-card {
+  background: var(--dark-overlay);
+  min-height: 160px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  padding: 1.5rem;
+  border-radius: 1rem;
+  text-align: center;
+  font-size: 1rem;
+  font-style: italic;
+  opacity: 0;
+  animation: floatCard 6s ease-in-out infinite, fadeCard 0.6s ease forwards;
+  animation-delay: var(--delay);
+  box-shadow: 0 0 8px rgba(255, 255, 255, 0.15);
+  transition: transform 0.4s ease, box-shadow 0.4s ease;
+  position: relative;
+  z-index: 1;
+  will-change: transform;
+  width: 100%;
+  max-width: 240px;
+}
+
+.affirmation-card:hover {
+  transform: translateY(-10px) scale(1.03) rotate(-0.5deg);
+  box-shadow: 0 0 18px 6px rgba(255, 255, 255, 0.25);
+}
+
+@keyframes floatCard {
+  0%   { transform: translateY(0) translateX(0); }
+  50%  { transform: translateY(-6px) translateX(3px); }
+  100% { transform: translateY(0) translateX(0); }
+}
+
+.envelope .flap::after {
+  content: "❤️";
+  position: absolute;
+  bottom: -12px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 1rem;
+  z-index: 3;
+  pointer-events: none;
+}
+
+@media (max-width: 480px) {
+  body {
+    font-size: 13px;
+  }
+
+  h1, h2, h3 {
+    font-size: 1.2rem;
+    line-height: 1.4;
+  }
+
+  .screen {
+    padding: 0.5rem;
+  }
+
+  .letter {
+    font-size: 0.95rem;
+    padding: 1rem;
+    margin: 0.5rem;
+  }
+
+  .poem-popup {
+    font-size: 1.2rem;
+    padding: 1rem;
+  }
+
+  .affirmation-card {
+    font-size: 0.95rem;
+    max-width: 90%;
+    margin: 0 auto;
+  }
+
+  button, .universal-button {
+  background-color: var(--accent);
+  color: white;
+  font-size: 1.25rem;
+  border: none;
+  padding: 0.8rem 2.5rem;
+  border-radius: 2rem;
+  box-shadow: 0 4px 8px var(--soft-shadow);
+  cursor: pointer;
+  font-family: 'Mansalva', cursive;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+  margin-top: 1.5rem;
+}
+
+button:hover, .universal-button:hover,
+button:focus, .universal-button:focus {
+  background-color: var(--hover-accent);
+  transform: scale(1.04);
+}
+
+@media (max-width: 600px) {
+  button, .universal-button {
+    font-size: 1.1rem;
+    padding: 1rem 2rem;
+    margin-top: 1rem;
+  }
+
+  button:hover, .universal-button:hover,
+  button:focus, .universal-button:focus {
+    transform: scale(1.06);
+  }
+}
+
+  .envelope {
+    transform: scale(0.7);
+    margin-top: 1rem;
+  
+  background-color: #d9c8a8;
+  overflow: hidden;
+  border-radius: 6px;
+
+  background-color: #d9c8a8;
+  overflow: hidden;
+  border-radius: 6px;
+  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.15);
+}
+
+  iframe {
+    height: auto !important;
+    width: 100% !important;
+    aspect-ratio: 16 / 9;
+  }
+}
+
+.turntable {
+  position: relative;
+  width: 400px;
+  height: 400px;
+  margin: 0 auto;
+  cursor: pointer;
+}
+
+.vinyl {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 100%;
+  height: 100%;
+  z-index: 1;
+  transform-origin: center;
+  will-change: transform;
+}
+
+.turner {
+  position: absolute;
+  width: 350px;
+  height: auto;
+  top: -150px;
+  left: 40px;
+  transform-origin: 100% 50%;
+  z-index: 2;
+  pointer-events: none;
+  transition: transform 0.5s ease;
+}
+
+.spinning {
+  animation: spin 3s linear infinite;
+}
+
+.arm-in {
+  transform: rotate(-47deg);
+}
+
+.arm-out {
+  transform: rotate(0deg);
+}
+
+@keyframes spin {
+  from { transform: translate(-50%, -50%) rotate(0deg); }
+  to   { transform: translate(-50%, -50%) rotate(360deg); }
+}
+
+    .cake {
+      position: relative;
+      width: 250px;
+      height: 200px;
+      margin: 2rem auto;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+    .plate {
+      width: 270px;
+      height: 110px;
+      position: absolute;
+      bottom: 0px;
+      left: -10px;
+      background-color: #ccc;
+      border-radius: 50%;
+      box-shadow: 0 2px 0 #b3b3b3, 0 4px 0 #b3b3b3, 0 5px 40px rgba(0, 0, 0, 0.5);
+    }
+
+    .cake > * {
+      position: absolute;
+    }
+
+    .layer {
+      width: 250px;
+      height: 100px;
+      border-radius: 50%;
+      background-color: #8b4513;
+      box-shadow: 0 2px 0px #5c2e00, 0 4px 0px #5c2e00, 0 6px 0px #5c2e00;
+    }
+
+    .layer-top { top: 0px; }
+    .layer-middle { top: 33px; }
+    .layer-bottom { top: 66px; }
+
+    .icing {
+      top: 2px;
+      left: 5px;
+      background-color: #d2b48c;
+      width: 240px;
+      height: 90px;
+      border-radius: 50%;
+    }
+    .icing:before {
+      content: "";
+      position: absolute;
+      top: 4px;
+      right: 5px;
+      bottom: 6px;
+      left: 5px;
+      background-color: #f4ebdc;
+      box-shadow: 0 0 4px #f6efe3;
+      border-radius: 50%;
+      z-index: 1;
+    }
+
+    .drip {
+      width: 50px;
+      height: 60px;
+      border-bottom-left-radius: 25px;
+      border-bottom-right-radius: 25px;
+      background-color: #d2b48c; 
+    }
+
+    .drip1 {
+      top: 53px;
+      left: 5px;
+      transform: skewY(15deg);
+      height: 48px;
+      width: 40px;
+    }
+
+    .drip2 {
+      top: 69px;
+      left: 181px;
+      transform: skewY(-15deg);
+    }
+
+    .drip3 {
+      top: 54px;
+      left: 90px;
+      width: 80px;
+      border-bottom-left-radius: 40px;
+      border-bottom-right-radius: 40px;
+    }
+
+    .candle {
+      background-color: #7B020B;
+      width: 12px;
+      height: 35px;
+      border-radius: 6px/3px;
+      z-index: 10;
+      transform: translate(-50%, -50%);
+    }
+    .candle:before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 12px;
+      height: 6px;
+      border-radius: 50%;
+      background-color: #ad030f;
+    }
+
+    .candle.out .flame {
+      display: none;
+    }
+
+    .flame {
+      position: absolute;
+      background-color: orange;
+      width: 10px;
+      height: 25px;
+      border-radius: 8px/20px;
+      top: -34px;
+      left: 50%;
+      margin-left: -5px;
+      z-index: 10;
+      box-shadow: 0 0 10px rgba(255, 165, 0, 0.5), 0 0 20px rgba(255, 165, 0, 0.5);
+      transform-origin: 50% 90%;
+      animation: flicker 1s ease-in-out alternate infinite;
+    }
+
+    @keyframes flicker {
+      0% { transform: skewX(5deg); }
+      25% { transform: skewX(-5deg); }
+      50% { transform: skewX(10deg); }
+      75% { transform: skewX(-10deg); }
+      100% { transform: skewX(5deg); }
+    }
+
+
+#progressBarContainer {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 6px;
+  background-color: rgba(255,255,255,0.2);
+  z-index: 20;
+}
+#progressBar {
+  height: 100%;
+  width: 0%;
+  background-color: var(--accent);
+  transition: width 0.5s ease;
+}
+
+</style>
+</head>
+<body>
+<div id="progressBarContainer"><div id="progressBar"></div></div>
+
+<div class="balloon static" style="left: 15vw; background-color: #AEEEEE;"></div>
+<div class="balloon static" style="left: 25vw; background-color: #FFB347;"></div>
+<div class="balloon static" style="left: 35vw; background-color: #CBAACB;"></div>
+<div class="balloon static" style="left: 45vw; background-color: #F4C7AB;"></div>
+</div>
+<script>
+
+function updateProgressBar(currentStep, totalSteps) {
+  const progress = (currentStep / totalSteps) * 100;
+  document.getElementById("progressBar").style.width = `${progress}%`;
+}
+
+
+for (let i = 0; i < 10; i++) {
+  const balloon = document.createElement('div');
+  balloon.classList.add('balloon');
+  balloon.style.top = '40vh';
+  balloon.style.left = Math.random() * 100 + 'vw';
+  balloon.style.animationDuration = (8 + Math.random() * 5) + 's';
+  balloon.style.backgroundColor = ['#FFD1DC', '#AEEEEE', '#FFB347', '#CBAACB'][i % 4];
+  document.body.appendChild(balloon);
+}
+
+    for (let i = 0; i < 30; i++) {
+      const petal = document.createElement('div');
+      petal.classList.add('petal');
+      petal.style.left = Math.random() * 100 + 'vw';
+      petal.style.top = '40vh';
+      petal.style.animationDuration = 5 + Math.random() * 5 + 's';
+      petal.style.background = ['#F4C7AB', '#A9D6B7', '#DFB45C'][i % 3];
+      document.body.appendChild(petal);
+    }
+
+    let currentPoem = 0;
+    const poems = [
+      `I saw your eyes and lost my way,\nLike stars that stole the light of day.\nThe thought of you, so wide, so true,\nOutshone the past I once clung to.`,
+  `I want your highs, your quiet lows,\nThe way your guarded feeling shows.\nNo need to shine or rise above—\nI’d take your fear, your fragile love.`,
+  `I want your flaws, your storms, your rain,\nThe hidden aches you don’t explain.\nYour cracks, your shadows, all you do—\nI want every part of you.`,
+  `You hesitate, yet still I see\nA strength that speaks so honestly.\nNot perfect, polished, or refined,\nBut soft, and real, and unconfined.`,
+  `You don’t have to hold me tight,\nYou’ve already lit my quiet night.\nThe risk was real, the ache was too,\nBut I’m still glad I reached for you.`,
+  `I don’t need promises or plans,\nJust fleeting peace in open hands.\nNot grand displays or something new,\nJust all the ways I’ve seen you through.`,
+  `I won’t pretend to have a claim,\nOr say you even feel the same.\nBut if you ever turn my way,\nYou’ll find I'll never walk away.`
+    ];
+
+    function nextScreen(num) {
+  const stepMap = {
+    "1": 1, "1_5": 2, "2": 3, "2_5": 4, "3": 5, "4": 6, "5": 7
+  };
+  const stepNum = stepMap[num] || 0;
+  updateProgressBar(stepNum, 7);
+
+  const current = document.querySelector('.screen.active');
+  const next = document.getElementById(`screen${num}`);
+
+  if (current && next) {
+    current.classList.remove('active');
+    setTimeout(() => {
+      current.style.display = 'none';
+      next.style.display = 'flex';
+      setTimeout(() => {
+        next.classList.add('active');
+      }, 50);
+    }, 500);
+  } else if (next) {
+    next.style.display = 'flex';
+    setTimeout(() => next.classList.add('active'), 50);
+  }
+}
+
+function showNextPoem() {
+  const display = document.getElementById("poemDisplay");
+  const button = document.querySelector("#screen4 button");
+
+  if (currentPoem < poems.length) {
+    display.style.animation = "fadeOut 0.8s ease";
+    setTimeout(() => {
+      display.innerText = poems[currentPoem];
+      display.style.animation = "fadeIn 1.2s ease forwards";
+      display.style.display = "block";
+      currentPoem++;
+
+      if (currentPoem === poems.length) {
+        button.innerText = "One last thing…";
+        button.onclick = () => nextScreen(5);
+      }
+    }, 800);
+  }
+}
+
+    window.addEventListener('click', () => {
+
+document.querySelector('.love-signature').addEventListener('click', function() {
+  document.getElementById('backButton').style.display = 'inline-block';
+});
+
+      const audio = document.getElementById('bg-music');
+      if (audio.paused) {
+        audio.play().catch(() => {});
+      }
+function resetExperience() {
+  document.querySelectorAll('.screen').forEach(screen => {
+    screen.classList.remove('active');
+    screen.style.opacity = 0;
+  });
+
+  const firstScreen = document.getElementById('screen1');
+  firstScreen.classList.add('active');
+  firstScreen.style.opacity = 1;
+
+  currentPoem = 0;
+  const poemDisplay = document.getElementById("poemDisplay");
+  if (poemDisplay) {
+    poemDisplay.innerText = '';
+    poemDisplay.style.display = 'none';
+  }
+
+  const poemButton = document.querySelector("#screen3 button");
+  if (poemButton) {
+    poemButton.innerText = "Reveal a whisper";
+  }
+
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+    });
+
+function goBack() {
+  location.reload();
+}
+
+function revealLetter() {
+  const envelope = document.getElementById('envelope');
+  const letter = document.getElementById('finalLetter');
+
+  if (envelope.classList.contains('open')) {
+    envelope.classList.remove('open');
+    envelope.classList.add('closing');
+    letter.style.display = 'none';
+
+    setTimeout(() => {
+      envelope.classList.remove('closing');
+    }, 500);
+  } else {
+    envelope.classList.add('open');
+    setTimeout(() => {
+      letter.style.display = 'block';
+      letter.scrollIntoView({ behavior: 'smooth' });
+    }, 300);
+  }
+}
+
+const affirmations = [
+  "You are not behind, you’re moving at the pace you need.",
+  "It’s okay to ask for space, and okay to ask for closeness too.",
+  "You make people feel safe just by being who you are.",
+  "Your presence, even in silence, brings comfort and meaning.",
+  "You are allowed to outgrow versions of yourself that no longer feel true.",
+  "The care you give others isn’t forgotten even when it feels unseen.",
+  "You can honor your past without letting it define your future.",
+  "Your existence isn’t something you have to justify.",
+  "It’s okay to feel everything all at once, that just means you’re human.",
+  "Even when you're not reaching out, you are still held in someone's heart.",
+  "Stillness is a form of strength— you're allowed to pause and breathe.",
+  "You don’t have to do anything extraordinary to deserve tenderness.",
+  "The way you carry your pain and still show up, that’s courage.",
+  "Not having answers right now doesn't mean you're lost.",
+  "You are loved, even in the moments you don’t feel lovable.",
+  "You are allowed to take up space, just as you are.",
+  "Healing isn’t always visible, but it’s still happening.",
+  "You don’t need to be perfect or whole to be deeply worthy of love."
+];
+
+let currentAffirmationSet = 0;
+
+function showAffirmationSet(index) {
+  const container = document.querySelector("#screen3 .affirmation-container");
+  container.innerHTML = ""; 
+
+  const start = index * 6;
+  const end = start + 6;
+  const subset = affirmations.slice(start, end);
+
+  subset.forEach((text, i) => {
+    const card = document.createElement("div");
+    card.className = "affirmation-card";
+    card.style.setProperty("--delay", `${i * 0.2}s`);
+    card.textContent = text;
+    container.appendChild(card);
+  });
+}
+
+document.addEventListener("DOMContentLoaded", () => {
+  showAffirmationSet(currentAffirmationSet);
+});
+
+</script>
+<div class="screen active" id="screen1">
+<h1>To the only exception to everything I am,<br/> 
+    	Happy Birthday, Adrian :)</h1>
+<button onclick="nextScreen('1_5')">Care to continue?</button>
+</div>
+<div class="screen" id="screen1_5" style="display: none; flex-direction: column; justify-content: center; align-items: center; text-align: center;">
+  <h2>A Spin of Soft Confessions</h2>
+  <div class="turntable" id="turntable">
+    <img src="vinyl.svg" alt="Vinyl" class="vinyl" id="vinyl">
+    <img src="turner.svg" alt="Tonearm" class="turner arm-out" id="turner">
+  </div>
+  <audio id="record-audio" src="soft-spot.mp3"></audio>
+  <audio id="crackle-audio" src="crackle.mp3" loop></audio>
+  <h3>Click the Vinyl to Play</h3>
+  <button onclick="nextScreen(2)">Let the Heartplay Begin...</button>
+</div>
+<div class="screen" id="screen2">
+<h2>An Ode to Him</h2>
+<div style="width: 100%; display: flex; justify-content: center;"><iframe allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" allowfullscreen="" frameborder="0" height="352" loading="lazy" src="https://open.spotify.com/embed/playlist/3yJjvH7xlvMRU6c2M1C5QO?utm_source=generator" style="border-radius:12px; width: 90%; max-width: 700px;" width="100%"></iframe></div>
+<h3 style"margin-bottom: 0.2rem;">If you want to listen to the whole playlist I made for you :)</h3>
+<button onclick="goToWish()">Care to make a wish?</button>
+</div>
+<div class="screen" id="screen2_5" style="display: none; flex-direction: column; align-items: center; justify-content: center;">
+  <h2 style="margin-bottom: 1rem;">Before Anything Else, Make a Wish First</h2><br>
+  <audio id="hbd-audio" src="hbd-song.mp3" loop></audio>
+  <div class="cake">
+    <div class="plate"></div>
+    <div class="layer layer-bottom"></div>
+    <div class="layer layer-middle"></div>
+    <div class="layer layer-top"></div>
+    <div class="icing"></div>
+    <div class="drip drip1"></div>
+    <div class="drip drip2"></div>
+    <div class="drip drip3"></div>
+  </div>
+  <h3>Blow on your Microphone or Click the Cake to Make a Wish</h3>
+ <button onclick="document.getElementById('hbd-audio').pause(); document.getElementById('hbd-audio').currentTime = 0; nextScreen('3')">There's more between the lines...</button>
+</div>
+<div class="screen" id="screen3">
+<h2>Soft Truths for the Hard Days</h2>
+<div class="affirmation-container">
+</div>
+<h3>For When You Need a Pick-Me-Up and I'm Not Around</h3>
+<button onclick="cycleAffirmations()">Keep Going...</button>
+</div>
+<div class="screen" id="screen4">
+<h2>Verses from the Heart</h2>
+<div class="poem-popup" id="poemDisplay"></div>
+<button onclick="showNextPoem()">Reveal a whisper</button>
+</div>
+<div class="screen" id="screen5">
+<h2>Whispers from the Heart</h2>
+<div class="envelope" id="envelope" onclick="revealLetter()">
+<div class="front flap"></div>
+<div class="front pocket"></div>
+</div>
+<div class="letter" id="finalLetter" style="display:none">
+<div class="letter-body"> 
+to the one my heart quietly chooses,<br/><br/>
+happy happy birthday, adrian!<br/>
+I wasn’t sure if I should message you today or just let the day pass quietly, but I realized some things are too important to stay unsaid— especially today. I hope this whole website and letter doesn’t overwhelm you or catch you at a bad time, I don't know what to get you kasi for your birthday and parang medyo suntok sa buwan na if and when we'll spend time together again so I thought of this na lang. I just want to remind you that, no matter what, you are deeply loved and thought of with so much care.
+
+and yes, I know you don’t like it when I remind you that you’re getting old, so I’ll keep that to myself for now lol but seriously, happy birthday! to tell you the truth, I don't really like birthdays since mine's not really worth celebrating pero I love celebrating other people's birthday kasi I get to do this kind of stuff for them— make them feel special and loved on their day so, I hope I haven't overwhelmed, pressured, or smothered you with it. I remember when I gave you a poem kasi last valentine's day and you said it was too much effort coming from me lol pero I guess, making gifts by hand is just one of my love languages talaga since I don't get to spend much time with people I love; this makes it personal gano'n. anyhow, yeah, I built this website myself (with a help from my friend because she's bored like me lol) and I know it's barely up to par for an IT major pero I hope you like it kahit papaano hehe
+
+there’s still so much I want to say to you. so many things I’ve kept in, not because I don’t feel them anymore, but because I do— more than I should and know how to say. I know I’ve been quiet lately, choosing to keep my distance not out of apathy, but out of understanding. because even though I’ve had the urge to reach out, to message you every day just to feel close again, my guilt-ridden self won’t let me. you’ve told me na you’re just tired, that socializing feels like too much sometimes and even if a part of me still feels unwanted every time I get left on read, another part of me knows better. I know this isn’t about me— you’re trying to figure things out in your own way, and I don’t want to add to your load. I understand why you’ve been distant and I’ll always honor your space if you ask for it, even when it quietly hurts.
+
+but today, just for now, let me be soft. let me say the things I’ve been holding back.
+
+I’ve been thinking a lot about you— about us. I miss you. that’s the simplest way I can put it. I miss your presence, your hugs, your voice, your warmth. I miss the way you used to make kulit and ask for stories I didn’t even know I needed to tell. It’s weird how much a simple “tell me” can echo in my head on days when I wish you’d ask again. I miss your random updates, your late-night calls, your need for lambing, your safe energy. I miss receiving pictures of your cats when you don’t have anything to say anymore. I miss the comfort of just existing in your world, even in small ways. I miss how you made me feel like I was someone worth checking in on, someone worth staying for. you probably don’t realize this, but just by being there for me when you didn’t have to be, you gave me something I didn’t know I needed. you made me feel safe, and for someone like me, who’s always been used to surviving alone, that meant everything.
+
+I don’t want you to feel like I’m forcing anything, especially now pero I want you to know this: I’m still here. I’ve been waiting. I’m still waiting for your answer to my last questions. I’m still waiting to spend time with you again, like we said we would. I’m still holding space for you, even when it hurts to do so. sometimes I wish I could message you every day again to ask how you are, to hear your voice or feel your energy but I don’t, not because I don’t want to but because I’m scared— scared that if you see the gravity of how much I love you, you’ll pull away completely. scared that the depth of my feelings for you will overwhelm you, or worse, drive you away. so I try to keep my distance— not because I’ve stopped or want to stop loving you, but because I don’t want to lose you. I’d rather love you quietly from here than risk making you feel like you have to run. I’ll carry this love quietly, keep it safe for when you’re ready for it— if you ever are.
+
+I’m so incredibly grateful for your existence. for who you are— not just the parts you show people, but the ones you try to hide. I see you, Adrian. I see how thoughtful you are, how you care in the small, intentional ways. the way you remember random things I say, the way you’d try to make me laugh and keep me company when I was being too hard on myself, the way you’d let me be quiet with you, without pressure. the way you made space for my messiness, my fears, my contradictions.
+
+you’ve been a quiet light in my life— and I don’t think I ever thanked you enough for that. you being in my life, even just for a while, changed me. you softened parts of me I didn’t think could be touched. you showed me what it means to feel safe with someone, to be seen, to be known and still accepted. you taught me that even people like me, who are guarded and scared and too self-critical, can still be seen— can still be held, even just for a while, and that will always matter to me. you’ve always been more than enough for me, even when you couldn’t see  or realize it. your presence in my life changed me in ways I can’t undo, and I wouldn't want to.
+
+today, on your birthday, I want to remind you that you matter. your existence is a gift. sounds corny but you’ve brought so much light into the lives of the people who know you— and into mine. you’ve made me feel safe, cared for, and understood, even when I didn’t know how to ask for those things. I want you to know how proud I am of you— of how far you’ve come, of how you’re trying to navigate things even when it’s hard, of how you’re still here, still breathing, still moving forward. 
+
+I wish you peace, the kind that silences the noise in your head and lets you rest without guilt. I wish you healing, the slow, quiet kind that finds you in the middle of the night when everything feels too heavy. I wish you warmth, not just from the people around you, but from within yourself. I hope you learn to be gentle with your own heart. I wish you clarity for all the things you’ve been trying to figure out, and the ones you’re too tired to name. I wish you freedom from the weight you’ve been carrying alone. I hope you find spaces where you can breathe freely and just be. I wish you genuine happiness, the one that makes you feel alive again. I wish you love that doesn't ask you to shrink, love that feels like coming home. I hope life is kind to you. I hope the world gives you the gentleness you deserve. and most of all, I wish you days where you remember that you are enough. even without doing anything, even when you’re quiet, and even when you're not okay.
+
+I want to say more, but I don’t want to overwhelm you. I just needed you to know that I’m still here, and I don’t plan on going anywhere kaya I’m staying until you don’t want me around anymore. you mean more to me than I know how to explain— you always have since that rainy day of may last year. I love you ardently, Adrian. it may seem unreal but I really do. you don’t have to say it back, you don’t have to do anything at all. I just needed you to know, especially today, that your life is worth celebrating. that your existence is a blessing, and that somewhere out here, someone who sees you and is rooting for you— always. 
+
+I know you’re more than capable of handling life and everything it throws at you but just in case the weight gets a little too heavy, please know that I’m always here— whether you need someone to listen, someone to lean on, or just someone to sit quietly with you, I’m just one message away. enjoy your special day, beh. 22 is just a number anyway, and you’re still the same chinito who somehow stole my heart last year lolololol
+
+happy happy birthday again, beh! thank you so much for existing and for staying in my life, even just for a while. Ingat ikaw palagi and see you around! lots of love, xo
+</div>
+<div class="letter-signature">
+    with my love, always,
+    zielle~
+  </div>
+</div>
+<h3 class="love-signature">With all my love, Zielle</h3>
+<button class="btn" id="backButton" onclick="goBack()" style="display: none; margin-top: 1rem;">← Back</button>
+</div>
+<script>
+const starContainer = document.createElement('div');
+starContainer.className = 'stars';
+document.body.appendChild(starContainer);
+
+for (let i = 0; i < 50; i++) {
+  const star = document.createElement('div');
+  star.classList.add('star');
+  star.style.top = '40vh';
+  star.style.left = Math.random() * 100 + 'vw';
+  star.style.animationDuration = (2 + Math.random() * 2) + 's';
+  starContainer.appendChild(star);
+}
+
+function cycleAffirmations() {
+  const totalSets = Math.ceil(affirmations.length / 6);
+  currentAffirmationSet++;
+
+  const button = document.querySelector("#screen3 button");
+
+  if (currentAffirmationSet < totalSets - 1) {
+    button.innerText = "There's More...";
+    showAffirmationSet(currentAffirmationSet);
+  } else if (currentAffirmationSet === totalSets - 1) {
+    button.innerText = "Only if you wish to know...";
+    showAffirmationSet(currentAffirmationSet);
+  } else {
+    nextScreen(4);
+  }
+}
+
+function goBack() {
+  location.reload();
+}
+
+function revealLetter() {
+  const envelope = document.getElementById('envelope');
+  const letter = document.getElementById('finalLetter');
+
+  if (envelope.classList.contains('open')) {
+    envelope.classList.remove('open');
+    envelope.classList.add('closing');
+    letter.style.display = 'none';
+
+    setTimeout(() => {
+      envelope.classList.remove('closing');
+    }, 500);
+  } else {
+    envelope.classList.add('open');
+    setTimeout(() => {
+      letter.style.display = 'block';
+      letter.scrollIntoView({ behavior: 'smooth' });
+    }, 300);
+  }
+}
+
+const vinyl = document.getElementById('vinyl');
+const turner = document.getElementById('turner');
+const music = document.getElementById('record-audio');
+const crackle = document.getElementById('crackle-audio');
+const turntable = document.getElementById('turntable');
+
+let isPlaying = false;
+let spinTimeout;
+
+function fadeIn(audio, duration = 1000, targetVolume = 1) {
+  audio.volume = 0;
+  audio.currentTime = 0;
+  audio.play();
+
+  const startTime = performance.now();
+  function step(currentTime) {
+    const elapsed = currentTime - startTime;
+    const progress = Math.min(elapsed / duration, 1);
+    audio.volume = progress * targetVolume;
+
+    if (progress < 1) {
+      requestAnimationFrame(step);
+    }
+  }
+  requestAnimationFrame(step);
+}
+
+function fadeOut(audio, duration = 1000) {
+  const startVolume = audio.volume;
+  const startTime = performance.now();
+  function step(currentTime) {
+    const elapsed = currentTime - startTime;
+    const progress = Math.min(elapsed / duration, 1);
+    audio.volume = startVolume * (1 - progress);
+
+    if (progress < 1) {
+      requestAnimationFrame(step);
+    } else {
+      audio.pause();
+      audio.currentTime = 0;
+    }
+  }
+  requestAnimationFrame(step);
+}
+turntable.addEventListener('click', () => {
+  isPlaying = !isPlaying;
+
+  if (isPlaying) {
+    turner.classList.remove('arm-out');
+    turner.classList.add('arm-in');
+
+    setTimeout(() => {
+      crackle.volume = 0.3;
+      crackle.currentTime = 0;
+      crackle.play();
+
+      music.volume = 1;
+      music.currentTime = 0;
+      music.play();
+
+      vinyl.classList.add('spinning');
+    }, 500);
+  } else {
+    turner.classList.remove('arm-in');
+    turner.classList.add('arm-out');
+
+    music.pause();
+    music.currentTime = 0;
+
+    crackle.pause();
+    crackle.currentTime = 0;
+
+    vinyl.classList.remove('spinning');
+  }
+});
+</script>
+<script>
+document.addEventListener("DOMContentLoaded", () => {
+  const screen = document.getElementById("screen2_5");
+  const audio = document.getElementById("hbd-audio");
+  const cake = screen.querySelector(".cake");
+  const button = document.getElementById("wishNextButton");
+
+  const candleCount = 3;
+  const startX = 85;
+  const spacing = 40;
+  const topY = 20;
+  const candles = [];
+
+  for (let i = 0; i < candleCount; i++) {
+    const x = startX + i * spacing;
+    const candle = document.createElement('div');
+    candle.className = 'candle';
+    candle.style.left = x + 'px';
+    candle.style.top = topY + 'px';
+
+    const flame = document.createElement('div');
+    flame.className = 'flame';
+    candle.appendChild(flame);
+
+    cake.appendChild(candle);
+    candles.push(candle);
+  }
+
+  function isBlowing() {
+    const bufferLength = analyser.frequencyBinCount;
+    const dataArray = new Uint8Array(bufferLength);
+    analyser.getByteFrequencyData(dataArray);
+    let sum = dataArray.reduce((a, b) => a + b, 0);
+    return sum / bufferLength > 50;
+  }
+
+  function blowOutCandles() {
+    if (candles.some(c => !c.classList.contains('out')) && isBlowing()) {
+      candles.forEach(c => {
+        if (!c.classList.contains('out') && Math.random() > 0.5) {
+          c.classList.add('out');
+        }
+      });
+    }
+  }
+
+  function stopAudio() {
+    if (!audio.paused) audio.pause();
+  }
+
+  cake.addEventListener("click", () => {
+    const allOut = candles.every(c => c.classList.contains("out"));
+
+    const music = document.getElementById("hbd-audio");
+
+    if (music.paused) {
+      candles.forEach(c => c.classList.remove("out"));
+      music.currentTime = 0;
+      music.play().catch(() => {
+        document.addEventListener("click", function resumeOnce() {
+          music.play();
+          document.removeEventListener("click", resumeOnce);
+        });
+      });
+      button.style.display = "none";
+    } else {
+      candles.forEach(c => c.classList.add("out"));
+      music.pause();
+      button.style.display = "inline-block";
+    }
+  });
+
+  const checkInterval = setInterval(() => {
+    if (candles.every(c => c.classList.contains("out"))) {
+      stopAudio();
+      button.style.display = 'inline-block';
+      clearInterval(checkInterval);
+    }
+  }, 300);
+
+  if (navigator.mediaDevices.getUserMedia) {
+    navigator.mediaDevices.getUserMedia({ audio: true }).then(stream => {
+      const audioContext = new (window.AudioContext || window.webkitAudioContext)();
+      const analyser = audioContext.createAnalyser();
+      const microphone = audioContext.createMediaStreamSource(stream);
+      microphone.connect(analyser);
+      analyser.fftSize = 256;
+      setInterval(blowOutCandles, 200);
+    });
+  }
+});
+
+const originalNextScreen = nextScreen;
+nextScreen = function(num) {
+  if (num === 2.5) {
+    const music = document.getElementById("hbd-audio");
+    music.play().catch(() => {
+      document.addEventListener("click", function resumeOnce() {
+        music.play();
+        document.removeEventListener("click", resumeOnce);
+      });
+    });
+  }
+  originalNextScreen(num);
+};
+</script>
+
+<script>
+function goToWish() {
+  nextScreen('2_5');
+  setTimeout(() => {
+    const music = document.getElementById("hbd-audio");
+    music.currentTime = 0;
+    music.play().catch(err => {
+      console.warn("Playback blocked:", err);
+      document.addEventListener("click", function resumeOnce() {
+        music.play();
+        document.removeEventListener("click", resumeOnce);
+      });
+    });
+  }, 700);
+}
+</script>
+<script>
+document.addEventListener("DOMContentLoaded", () => {
+  const screen = document.getElementById("screen2_5");
+  const music = document.getElementById("hbd-audio");
+  const cake = screen.querySelector(".cake");
+  const button = document.getElementById("wishNextButton");
+  const candles = [];
+
+  const candleCount = 3;
+  const startX = 85;
+  const spacing = 40;
+  const topY = 20;
+
+  for (let i = 0; i < candleCount; i++) {
+    const x = startX + i * spacing;
+    const candle = document.createElement('div');
+    candle.className = 'candle';
+    candle.style.left = x + 'px';
+    candle.style.top = topY + 'px';
+
+    const flame = document.createElement('div');
+    flame.className = 'flame';
+    candle.appendChild(flame);
+
+    cake.appendChild(candle);
+    candles.push(candle);
+  }
+
+  cake.addEventListener("click", () => {
+    const allOut = candles.every(c => c.classList.contains("out"));
+
+    const music = document.getElementById("hbd-audio");
+
+    if (music.paused) {
+      candles.forEach(c => c.classList.remove("out"));
+      music.currentTime = 0;
+      music.play().catch(() => {
+        document.addEventListener("click", function resumeOnce() {
+          music.play();
+          document.removeEventListener("click", resumeOnce);
+        });
+      });
+      button.style.display = "none";
+    } else {
+      candles.forEach(c => c.classList.add("out"));
+      music.pause();
+      button.style.display = "inline-block";
+    }
+  });
+      });
+    } else {
+      candles.forEach(c => c.classList.add("out"));
+      music.pause();
+      music.currentTime = 0;
+      button.style.display = "inline-block";
+    }
+  });
+
+  function isBlowing() {
+    const bufferLength = analyser.frequencyBinCount;
+    const dataArray = new Uint8Array(bufferLength);
+    analyser.getByteFrequencyData(dataArray);
+    let sum = dataArray.reduce((a, b) => a + b, 0);
+    return sum / bufferLength > 50;
+  }
+
+  function blowOutCandles() {
+    if (candles.some(c => !c.classList.contains('out')) && isBlowing()) {
+      candles.forEach(c => {
+        if (!c.classList.contains('out') && Math.random() > 0.5) {
+          c.classList.add('out');
+        }
+      });
+    }
+  }
+
+  const checkInterval = setInterval(() => {
+    if (candles.every(c => c.classList.contains("out"))) {
+      music.pause();
+      music.currentTime = 0;
+      button.style.display = 'inline-block';
+      clearInterval(checkInterval);
+    }
+  }, 300);
+
+  if (navigator.mediaDevices.getUserMedia) {
+    navigator.mediaDevices.getUserMedia({ audio: true }).then(stream => {
+      const audioContext = new (window.AudioContext || window.webkitAudioContext)();
+      const analyser = audioContext.createAnalyser();
+      const microphone = audioContext.createMediaStreamSource(stream);
+      microphone.connect(analyser);
+      analyser.fftSize = 256;
+      setInterval(blowOutCandles, 200);
+    });
+  }
+});
+</script>
+</body>
+</html>
